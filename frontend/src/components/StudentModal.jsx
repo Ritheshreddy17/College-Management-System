@@ -6,6 +6,7 @@ const emptyForm = {
   usn: "",
   email: "",
   phone: "",
+  college: "",
   department: "",
   course: "",
 };
@@ -22,15 +23,17 @@ function StudentModal({
   useEffect(() => {
     if (editStudent) {
       setFormData({
-        name: editStudent.name || "",
-        usn: editStudent.usn || "",
-        email: editStudent.email || "",
-        phone: editStudent.phone || "",
-        department:
-          editStudent.department || "",
-        course:
-          editStudent.course || "",
-      });
+  name: editStudent.name || "",
+  usn: editStudent.usn || "",
+  email: editStudent.email || "",
+  phone: editStudent.phone || "",
+  college:
+    editStudent.college || "",
+  department:
+    editStudent.department || "",
+  course:
+    editStudent.course || "",
+});
     } else {
       setFormData(emptyForm);
     }
@@ -105,7 +108,15 @@ function StudentModal({
               className="border p-3 rounded"
               required
             />
-
+            <input
+  type="text"
+  name="college"
+  placeholder="College"
+  value={formData.college}
+  onChange={handleChange}
+  className="border p-3 rounded"
+  required
+/>
             <input
               type="text"
               name="department"

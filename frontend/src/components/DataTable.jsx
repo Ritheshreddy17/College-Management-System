@@ -4,6 +4,9 @@ function DataTable({
   onEdit,
   onDelete,
 }) {
+  const showActions =
+    onEdit && onDelete;
+
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden">
       <table className="w-full">
@@ -18,9 +21,11 @@ function DataTable({
               </th>
             ))}
 
-            <th className="p-3 text-center">
-              Actions
-            </th>
+            {showActions && (
+              <th className="p-3 text-center">
+                Actions
+              </th>
+            )}
           </tr>
         </thead>
 
@@ -40,33 +45,42 @@ function DataTable({
                   </td>
                 ))}
 
-                <td className="p-3">
-                  <div className="flex justify-center gap-2">
+                {showActions && (
+                  <td className="p-3">
+                    <div className="flex justify-center gap-2">
 
-                    <button
-                      onClick={() => onEdit(row)}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded"
-                    >
-                      Edit
-                    </button>
+                      <button
+                        onClick={() =>
+                          onEdit(row)
+                        }
+                        className="bg-yellow-500 text-white px-3 py-1 rounded"
+                      >
+                        Edit
+                      </button>
 
-                    <button
-                      onClick={() =>
-                        onDelete(row._id)
-                      }
-                      className="bg-red-500 text-white px-3 py-1 rounded"
-                    >
-                      Delete
-                    </button>
+                      <button
+                        onClick={() =>
+                          onDelete(row._id)
+                        }
+                        className="bg-red-500 text-white px-3 py-1 rounded"
+                      >
+                        Delete
+                      </button>
 
-                  </div>
-                </td>
+                    </div>
+                  </td>
+                )}
+
               </tr>
             ))
           ) : (
             <tr>
               <td
-                colSpan={columns.length + 1}
+                colSpan={
+                  showActions
+                    ? columns.length + 1
+                    : columns.length
+                }
                 className="text-center p-5"
               >
                 No Records Found

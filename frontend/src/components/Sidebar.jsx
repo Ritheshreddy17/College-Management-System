@@ -16,58 +16,100 @@ import {
 function Sidebar() {
   const navigate = useNavigate();
 
+  const role =
+    localStorage.getItem("role");
+
   const handleLogout = () => {
     localStorage.removeItem(
       "isLoggedIn"
     );
 
+    localStorage.removeItem(
+      "role"
+    );
+
     navigate("/login");
   };
 
-  const menus = [
-    {
-      name: "Dashboard",
-      path: "/",
-      icon: <FaTachometerAlt />,
-    },
-    {
-      name: "Colleges",
-      path: "/colleges",
-      icon: <FaUniversity />,
-    },
-    {
-      name: "Students",
-      path: "/students",
-      icon: <FaUserGraduate />,
-    },
-    {
-      name: "Departments",
-      path: "/departments",
-      icon: <FaBuilding />,
-    },
-    {
-      name: "Courses",
-      path: "/courses",
-      icon: <FaBook />,
-    },
-    {
-      name: "Faculty",
-      path: "/faculty",
-      icon: <FaChalkboardTeacher />,
-    },
-  ];
+  let menus = [];
+
+  if (role === "admin") {
+    menus = [
+      {
+        name: "Dashboard",
+        path: "/",
+        icon: <FaTachometerAlt />,
+      },
+      {
+        name: "Colleges",
+        path: "/colleges",
+        icon: <FaUniversity />,
+      },
+      {
+        name: "Students",
+        path: "/students",
+        icon: <FaUserGraduate />,
+      },
+      {
+        name: "Departments",
+        path: "/departments",
+        icon: <FaBuilding />,
+      },
+      {
+        name: "Courses",
+        path: "/courses",
+        icon: <FaBook />,
+      },
+      {
+        name: "Faculty",
+        path: "/faculty",
+        icon: <FaChalkboardTeacher />,
+      },
+    ];
+  }
+
+  if (role === "faculty") {
+    menus = [
+      {
+        name: "Dashboard",
+        path: "/",
+        icon: <FaTachometerAlt />,
+      },
+      {
+        name: "Students",
+        path: "/students",
+        icon: <FaUserGraduate />,
+      },
+      {
+        name: "Courses",
+        path: "/courses",
+        icon: <FaBook />,
+      },
+    ];
+  }
 
   return (
     <div className="w-72 min-h-screen bg-slate-900 text-white flex flex-col">
 
       <div className="p-6 border-b border-slate-700">
         <h1 className="text-2xl font-bold">
-          🎓 CMS
+          🎓 EduAdmin Pro
         </h1>
 
         <p className="text-sm text-slate-400 mt-1">
-          College Management System
+          Smart College ERP
         </p>
+        <div className="bg-slate-800 rounded-xl p-4 mt-4">
+  <h3 className="font-semibold">
+    {localStorage.getItem("role")?.toUpperCase()}
+  </h3>
+  <p className="text-xs text-slate-400">
+    Logged In
+  </p>
+</div>
+        <div className="mt-3 text-xs bg-blue-600 inline-block px-3 py-1 rounded-full">
+          {role?.toUpperCase()}
+        </div>
       </div>
 
       <div className="flex-1 p-4">

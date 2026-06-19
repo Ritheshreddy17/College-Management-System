@@ -18,6 +18,8 @@ function Courses() {
   const [open, setOpen] = useState(false);
   const [editCourse, setEditCourse] = useState(null);
 
+  const role = localStorage.getItem("role");
+
   useEffect(() => {
     fetchCourses();
   }, []);
@@ -130,15 +132,17 @@ function Courses() {
           Courses Management
         </h1>
 
-        <button
-          onClick={() => {
-            setEditCourse(null);
-            setOpen(true);
-          }}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Add Course
-        </button>
+        {role === "admin" && (
+  <button
+    onClick={() => {
+      setEditCourse(null);
+      setOpen(true);
+    }}
+    className="bg-blue-600 text-white px-4 py-2 rounded"
+  >
+    Add Course
+  </button>
+)}
       </div>
 
       <div className="bg-white p-4 rounded shadow mb-5">
@@ -154,11 +158,19 @@ function Courses() {
       </div>
 
       <DataTable
-        columns={columns}
-        data={filteredCourses}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+  columns={columns}
+  data={filteredCourses}
+  onEdit={
+    role === "admin"
+      ? handleEdit
+      : null
+  }
+  onDelete={
+    role === "admin"
+      ? handleDelete
+      : null
+  }
+/>
 
       <div className="mt-4 font-medium">
         Total Courses: {filteredCourses.length}

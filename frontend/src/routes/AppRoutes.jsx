@@ -1,4 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
@@ -9,28 +13,23 @@ import Courses from "../pages/Courses";
 import Faculty from "../pages/Faculty";
 
 import ProtectedRoute from "./ProtectedRoute";
+import RoleProtectedRoute from "./RoleProtectedRoute";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
 
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
         <Route
           path="/"
           element={
             <ProtectedRoute>
               <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/colleges"
-          element={
-            <ProtectedRoute>
-              <Colleges />
             </ProtectedRoute>
           }
         />
@@ -45,15 +44,6 @@ function AppRoutes() {
         />
 
         <Route
-          path="/departments"
-          element={
-            <ProtectedRoute>
-              <Departments />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
           path="/courses"
           element={
             <ProtectedRoute>
@@ -63,10 +53,46 @@ function AppRoutes() {
         />
 
         <Route
+          path="/colleges"
+          element={
+            <ProtectedRoute>
+              <RoleProtectedRoute
+                allowedRoles={[
+                  "admin",
+                ]}
+              >
+                <Colleges />
+              </RoleProtectedRoute>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/departments"
+          element={
+            <ProtectedRoute>
+              <RoleProtectedRoute
+                allowedRoles={[
+                  "admin",
+                ]}
+              >
+                <Departments />
+              </RoleProtectedRoute>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/faculty"
           element={
             <ProtectedRoute>
-              <Faculty />
+              <RoleProtectedRoute
+                allowedRoles={[
+                  "admin",
+                ]}
+              >
+                <Faculty />
+              </RoleProtectedRoute>
             </ProtectedRoute>
           }
         />

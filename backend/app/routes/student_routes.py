@@ -17,6 +17,7 @@ def serialize_student(student):
         "usn": student["usn"],
         "email": student["email"],
         "phone": student["phone"],
+        "college": student.get("college", ""),
         "department": student["department"],
         "course": student["course"],
     }

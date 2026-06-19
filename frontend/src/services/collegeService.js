@@ -6,18 +6,8 @@ export const getColleges = () =>
 export const createCollege = (data) =>
   API.post("/colleges/", data);
 
-export const updateCollege = (
-  id,
-  data
-) =>
-  API.put(
-    `/colleges/${id}`,
-    data
-  );
+export const updateCollege = (id, data) =>
+  API.put(`/colleges/${id}`, data);
 
-export const deleteCollege = (
-  id
-) =>
-  API.delete(
-    `/colleges/${id}`
-  );
+export const deleteCollege = (id) =>
+  API.delete(`/colleges/${id}`);

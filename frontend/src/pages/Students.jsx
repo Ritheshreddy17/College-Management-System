@@ -17,6 +17,8 @@ function Students() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editStudent, setEditStudent] = useState(null);
 
+  const role = localStorage.getItem("role");
+
   useEffect(() => {
     async function fetchStudents() {
       try {
@@ -48,7 +50,8 @@ function Students() {
       student.name?.toLowerCase().includes(searchText) ||
       student.usn?.toLowerCase().includes(searchText) ||
       student.email?.toLowerCase().includes(searchText) ||
-      student.department?.toLowerCase().includes(searchText)
+      student.department?.toLowerCase().includes(searchText) ||
+      student.college?.toLowerCase().includes(searchText)
     );
   });
 
@@ -120,15 +123,17 @@ function Students() {
     Export Excel
   </button>
 
-  <button
-    onClick={() => {
-      setEditStudent(null);
-      setIsModalOpen(true);
-    }}
-    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-  >
-    Add Student
-  </button>
+  {role === "admin" && (
+    <button
+      onClick={() => {
+        setEditStudent(null);
+        setIsModalOpen(true);
+      }}
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+    >
+      Add Student
+    </button>
+  )}
 
 </div>
       </div>
@@ -153,6 +158,7 @@ function Students() {
               <th className="p-3">Name</th>
               <th className="p-3">Email</th>
               <th className="p-3">Phone</th>
+              <th className="p-3">College</th>
               <th className="p-3">Department</th>
               <th className="p-3">Course</th>
               <th className="p-3">Actions</th>
@@ -171,6 +177,9 @@ function Students() {
                   <td className="p-3">{student.email}</td>
                   <td className="p-3">{student.phone}</td>
                   <td className="p-3">
+                    {student.college}
+                  </td>
+                  <td className="p-3">
                     {student.department}
                   </td>
                   <td className="p-3">
@@ -178,7 +187,8 @@ function Students() {
                   </td>
 
                   <td className="p-3">
-                    <div className="flex gap-2 justify-center">
+                    {role === "admin" && (
+                      <div className="flex gap-2 justify-center">
                       <button
                         onClick={() => {
                           setEditStudent(student);
@@ -198,6 +208,7 @@ function Students() {
                         Delete
                       </button>
                     </div>
+                    )}
                   </td>
                 </tr>
               ))
