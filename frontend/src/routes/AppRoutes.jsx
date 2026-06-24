@@ -11,7 +11,7 @@ import Students from "../pages/Students";
 import Departments from "../pages/Departments";
 import Courses from "../pages/Courses";
 import Faculty from "../pages/Faculty";
-
+import AIAssistant from "../pages/AIAssistant";
 import ProtectedRoute from "./ProtectedRoute";
 import RoleProtectedRoute from "./RoleProtectedRoute";
 
@@ -96,7 +96,14 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
-
+<Route
+  path="/assistant"
+  element={
+    <ProtectedRoute>
+      <AIAssistant />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
     </BrowserRouter>
   );

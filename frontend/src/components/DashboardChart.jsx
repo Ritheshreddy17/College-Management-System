@@ -33,31 +33,26 @@ function DashboardChart({ stats }) {
   ];
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg p-8 mt-8">
-      <h2 className="text-2xl font-bold text-slate-800 mb-6">
-        System Analytics
-      </h2>
+    <ResponsiveContainer
+      width="100%"
+      height={350}
+    >
+      <BarChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
 
-      <ResponsiveContainer
-        width="100%"
-        height={400}
-      >
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
 
-          <XAxis dataKey="name" />
+        <YAxis />
 
-          <YAxis />
+        <Tooltip />
 
-          <Tooltip />
-
-          <Bar
-            dataKey="count"
-            radius={[10, 10, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+        <Bar
+          dataKey="count"
+          fill="#2563eb"
+          radius={[10, 10, 0, 0]}
+        />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
 

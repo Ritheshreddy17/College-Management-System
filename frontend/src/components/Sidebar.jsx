@@ -6,28 +6,18 @@ import {
   FaBook,
   FaChalkboardTeacher,
   FaSignOutAlt,
+  FaRobot,
 } from "react-icons/fa";
 
-import {
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const navigate = useNavigate();
-
-  const role =
-    localStorage.getItem("role");
+  const role = localStorage.getItem("role");
 
   const handleLogout = () => {
-    localStorage.removeItem(
-      "isLoggedIn"
-    );
-
-    localStorage.removeItem(
-      "role"
-    );
-
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("role");
     navigate("/login");
   };
 
@@ -35,118 +25,74 @@ function Sidebar() {
 
   if (role === "admin") {
     menus = [
+      { name: "Dashboard",   path: "/",            icon: <FaTachometerAlt size={20} /> },
+      { name: "Colleges",    path: "/colleges",    icon: <FaUniversity size={20} /> },
+      { name: "Students",    path: "/students",    icon: <FaUserGraduate size={20} /> },
+      { name: "Departments", path: "/departments", icon: <FaBuilding size={20} /> },
+      { name: "Courses",     path: "/courses",     icon: <FaBook size={20} /> },
+      { name: "Faculty",     path: "/faculty",     icon: <FaChalkboardTeacher size={20} /> },
       {
-        name: "Dashboard",
-        path: "/",
-        icon: <FaTachometerAlt />,
-      },
-      {
-        name: "Colleges",
-        path: "/colleges",
-        icon: <FaUniversity />,
-      },
-      {
-        name: "Students",
-        path: "/students",
-        icon: <FaUserGraduate />,
-      },
-      {
-        name: "Departments",
-        path: "/departments",
-        icon: <FaBuilding />,
-      },
-      {
-        name: "Courses",
-        path: "/courses",
-        icon: <FaBook />,
-      },
-      {
-        name: "Faculty",
-        path: "/faculty",
-        icon: <FaChalkboardTeacher />,
-      },
+  name: "AI Assistant",
+  path: "/assistant",
+  icon: <FaRobot />,
+},
     ];
   }
 
   if (role === "faculty") {
     menus = [
-      {
-        name: "Dashboard",
-        path: "/",
-        icon: <FaTachometerAlt />,
-      },
-      {
-        name: "Students",
-        path: "/students",
-        icon: <FaUserGraduate />,
-      },
-      {
-        name: "Courses",
-        path: "/courses",
-        icon: <FaBook />,
-      },
+      { name: "Dashboard", path: "/",         icon: <FaTachometerAlt size={20} /> },
+      { name: "Students",  path: "/students", icon: <FaUserGraduate size={20} /> },
+      { name: "Courses",   path: "/courses",  icon: <FaBook size={20} /> },
     ];
   }
 
   return (
     <div className="w-72 min-h-screen bg-slate-900 text-white flex flex-col">
 
-      <div className="p-6 border-b border-slate-700">
-        <h1 className="text-2xl font-bold">
-          🎓 EduAdmin Pro
-        </h1>
+      {/* ── Brand ── */}
+      <div className="px-6 py-6 border-b border-slate-700">
+        <h1 className="text-2xl font-bold text-white">🎓 EduAdmin Pro</h1>
+        <p className="text-sm text-slate-400 mt-1">Smart College ERP</p>
 
-        <p className="text-sm text-slate-400 mt-1">
-          Smart College ERP
-        </p>
-        <div className="bg-slate-800 rounded-xl p-4 mt-4">
-  <h3 className="font-semibold">
-    {localStorage.getItem("role")?.toUpperCase()}
-  </h3>
-  <p className="text-xs text-slate-400">
-    Logged In
-  </p>
-</div>
-        <div className="mt-3 text-xs bg-blue-600 inline-block px-3 py-1 rounded-full">
-          {role?.toUpperCase()}
+        <div className="bg-slate-800 rounded-xl px-4 py-4 mt-5">
+          <p className="text-base font-semibold text-white">
+            {role?.toUpperCase()}
+          </p>
+          <p className="text-sm text-slate-400 mt-0.5">Logged In</p>
         </div>
       </div>
 
-      <div className="flex-1 p-4">
+      {/* ── Navigation ── */}
+      <div className="flex-1 px-4 py-5 space-y-1">
         {menus.map((menu) => (
           <NavLink
             key={menu.name}
             to={menu.path}
+            end={menu.path === "/"}
             className={({ isActive }) =>
-              `flex items-center gap-3 p-3 mb-2 rounded-xl transition-all ${
+              `flex items-center gap-4 px-4 py-4 rounded-xl text-base font-medium transition-all duration-150 ${
                 isActive
                   ? "bg-blue-600 text-white"
-                  : "hover:bg-slate-800"
+                  : "text-slate-300 hover:bg-slate-800 hover:text-white"
               }`
             }
           >
-            {menu.icon}
-
-            <span>
-              {menu.name}
-            </span>
+            <span className="shrink-0">{menu.icon}</span>
+            <span>{menu.name}</span>
           </NavLink>
         ))}
       </div>
 
-      <div className="p-4 border-t border-slate-700">
-
+      {/* ── Logout ── */}
+      <div className="px-4 pb-6">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 w-full p-3 rounded-xl bg-red-600 hover:bg-red-700 transition"
+          className="flex items-center gap-4 w-full px-4 py-4 rounded-xl text-base font-medium bg-red-600 hover:bg-red-700 text-white transition-all duration-150"
         >
-          <FaSignOutAlt />
-
-          <span>
-            Logout
-          </span>
+          <FaSignOutAlt size={20} />
+          <span>Logout</span>
         </button>
-
       </div>
 
     </div>

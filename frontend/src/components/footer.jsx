@@ -1,10 +1,11 @@
 function Footer() {
   return (
-    <div className="text-center mt-10 py-6 text-sm text-gray-500 border-t">
-      © 2026 EduAdmin Pro
-      <br />
-      Developed by Rithesh Reddy
-    </div>
+    <footer className="mt-auto py-5 px-8 border-t border-slate-200 bg-white">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-1">
+        <p className="text-sm text-slate-400">© 2026 College Management System</p>
+        <p className="text-sm text-slate-400">Developed by <span className="font-semibold text-blue-500">Rithesh Reddy</span></p>
+      </div>
+    </footer>
   );
 }
 
