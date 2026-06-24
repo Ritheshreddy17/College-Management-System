@@ -7,6 +7,7 @@ from app.routes.course_routes import router as course_router
 from app.routes.faculty_routes import router as faculty_router
 from app.routes.dashboard_routes import router as dashboard_router
 from app.routes.ai_routes import router as ai_router
+from app.routes import auth_routes
 app = FastAPI(
     title="College Management API",
     version="1.0.0"
@@ -31,6 +32,7 @@ app.include_router(
     prefix="/ai",
     tags=["AI"]
 )
+app.include_router(auth_routes.router)
 @app.get("/")
 def home():
     return {
